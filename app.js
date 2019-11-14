@@ -1,14 +1,19 @@
-const express = require('express')
-const app = express()
-const morgan = require('morgan')
-app.use(morgan('dev'))
-app.use(express.static('public'))
-app.use(express.urlencoded({extended:false}))
+const express = require("express");
+const app = express();
+const morgan = require("morgan");
+const layout = require("./views/layout");
+const { db } = require("./models");
 
-app.listen('1337')
+db.authenticate().then(() => {
+  console.log("connected to the database :)");
+});
 
-app.get('/', (req,res) => {
+app.use(morgan("dev"));
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
-  res.send('Hello World')
+app.get("/", (req, res) => {
+  res.send(layout(""));
+});
 
-})
+app.listen("3000");
