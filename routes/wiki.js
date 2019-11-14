@@ -11,9 +11,6 @@ router.post("/", async (req, res, next) => {
   // console.log(req.body.title, req.body.author);
 
 
-  const makeSlug =(title)=>{
-    return title.replace(/\s+/g, `_`).replace(/\W/g, '');
-  }
 
 
 
@@ -21,9 +18,8 @@ router.post("/", async (req, res, next) => {
     title: req.body.title,
     content: req.body.content,
     status: req.body.status,
-    slug: makeSlug(req.body.title)
   });
-console.log(page);
+
   try{
     await page.save();
     res.redirect('/');
